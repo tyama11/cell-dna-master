@@ -67,6 +67,54 @@ const els = {
     overlayHomeBtn: byId                   ('overlay-home-btn')
 };
 
+function syncMute()       {
+    const m = SOUND_FX.isMuted();
+    els.homeMuteBtn.textContent = m ? '🔇 音OFF' : '🔊 音ON';
+    els.gameMuteBtn.textContent = m ? '🔇' : '🔊';
+}
+
+function init()       {
+    els.categoryTabs.forEach((tab) => tab.addEventListener('click', () => {
+        SOUND_FX.playTap();
+        const cat = tab.dataset['category']            ;
+        setCategory(cat);
+    }));
+    els.modeButtons.forEach((btn) => btn.addEventListener('click', () => {
+        SOUND_FX.playTap();
+        startGame(btn.dataset['difficulty']              );
+    }));
+    els.homeBtn.addEventListener('click', () => { SOUND_FX.playTap(); resetToHome(); });
+    els.overlayHomeBtn.addEventListener('click', () => { SOUND_FX.playTap(); resetToHome(); });
+    els.retryBtn.addEventListener('click', () => { SOUND_FX.playTap(); els.clearOverlay.classList.remove('active'); startGame(state.difficulty); });
+    const mute = () => { SOUND_FX.toggleMute(); syncMute(); };
+    els.homeMuteBtn.addEventListener('click', mute);
+    els.gameMuteBtn.addEventListener('click', mute);
+    syncMute();
+
+    els.boardSvg.addEventListener('click', (e) => {
+        if (!state.isPlaying || state.difficulty === 'oni' || !state.selectedItemId) return;
+        const node = (e.target                  )?.closest             ('.stage-node.interactive-target');
+        if (node) attemptPlace(node.dataset['stage'] ?? '');
+    });
+    els.boardSvg.addEventListener('keydown', (e) => {
+        if ((e.key === 'Enter' || e.key === ' ') && state.isPlaying && state.difficulty !== 'oni') {
+            const node = (e.target                  )?.closest             ('.stage-node.interactive-target');
+            if (node) { e.preventDefault(); attemptPlace(node.dataset['stage'] ?? ''); }
+        }
+    });
+    document.addEventListener('keydown', (e) => {
+        if (!els.gameScreen.classList.contains('active') || !state.isPlaying) return;
+        if (state.difficulty === 'oni' && /^[1-9]$/.test(e.key)) {
+            const t = els.cardList.querySelectorAll             ('.bio-card')[Number(e.key) - 1];
+            if (t) { e.preventDefault(); t.click(); }
+        } else if (e.key === 'Escape' && state.selectedItemId) {
+            state.selectedItemId = null; renderCards();
+        }
+    });
+    setCategory('cell');
+    updateTabScores();
+}
+
 function updateTabScores()       {
     [['cell', els.tabScore1], ['dna', els.tabScore2]].forEach(([c, el]) => {
         const s = progress.getOniBest(c            );
@@ -494,6 +542,7 @@ function resetToHome()       {
     state.justUnlockedOni = false;
 }
 
+init();
 
 
 //# sourceURL=app.ts

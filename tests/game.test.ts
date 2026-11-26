@@ -36,5 +36,6 @@ describe('DOM & index.html integrity', () => {
         const cssMatch = html.match(/href="css\/style\.css\?v=([^"]+)"/);
         const jsMatch = html.match(/<script type="module" src="js\/app\.js\?v=([^"]+)"><\/script>/);
         assert.equal(cssMatch?.[1], jsMatch?.[1]);
+        assert.ok(appTs.includes('function init(') && appTs.includes('init();'), 'src/app.ts must define and call init()');
     });
 });
