@@ -371,7 +371,6 @@ function resetToHome()       {
     state.justUnlockedOni = false;
 }
 
-init();
 
 
 //# sourceURL=app.ts

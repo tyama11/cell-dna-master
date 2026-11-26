@@ -371,4 +371,3 @@ function resetToHome(): void {
     state.justUnlockedOni = false;
 }
 
-init();
