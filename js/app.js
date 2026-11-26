@@ -98,38 +98,141 @@ function setCategory(cat          )       {
 function renderBoardBackdropSvg(cat          )         {
     if (cat === 'cell') {
         return `
-        <!-- 解像度スケール矢印バー -->
-        <g transform="translate(350, 42)">
-            <rect x="-310" y="-22" width="620" height="44" rx="22" fill="#E4F5F1" stroke="#0D9488" stroke-width="1.5" stroke-dasharray="4 4" />
-            <text x="0" y="4" text-anchor="middle" font-size="13" font-weight="850" fill="#006B5F">📏 尺度: 肉眼 0.1mm → 光学 0.1μm → 電子 0.1nm</text>
+        <!-- Top: 分解能の限界スケール (x=16, y=10, w=668, h=155) -->
+        <g transform="translate(16, 10)">
+            <rect width="668" height="155" rx="16" fill="#F0FDFA" stroke="#99F6E4" stroke-width="2" />
+            <text x="24" y="28" font-size="13" font-weight="900" fill="#0D9488">分解能の限界スケール</text>
+            <g transform="translate(40, 85)">
+                <line x1="0" y1="0" x2="588" y2="0" stroke="#0D9488" stroke-width="3" stroke-linecap="round"/>
+                <circle cx="0" cy="0" r="6" fill="#0D9488"/>
+                <text x="0" y="-14" text-anchor="middle" font-size="11" font-weight="800" fill="#0F766E">1mm</text>
+                <text x="0" y="22" text-anchor="middle" font-size="10" font-weight="700" fill="#64748B">肉眼</text>
+
+                <circle cx="196" cy="0" r="6" fill="#0D9488"/>
+                <text x="196" y="-14" text-anchor="middle" font-size="11" font-weight="800" fill="#0F766E">0.1mm</text>
+
+                <circle cx="392" cy="0" r="6" fill="#0D9488"/>
+                <text x="392" y="-14" text-anchor="middle" font-size="11" font-weight="800" fill="#0F766E">0.1μm</text>
+                <text x="392" y="22" text-anchor="middle" font-size="10" font-weight="700" fill="#64748B">光学顕微鏡</text>
+
+                <circle cx="588" cy="0" r="6" fill="#0D9488"/>
+                <text x="588" y="-14" text-anchor="middle" font-size="11" font-weight="800" fill="#0F766E">0.1nm</text>
+                <text x="588" y="22" text-anchor="middle" font-size="10" font-weight="700" fill="#64748B">電子顕微鏡</text>
+
+                <!-- Arrow markers -->
+                <path d="M578 -5 L588 0 L578 5" fill="none" stroke="#0D9488" stroke-width="2" stroke-linecap="round"/>
+            </g>
         </g>
-        <!-- 原核 vs 真核 フレーム -->
-        <g transform="translate(350, 255)">
-            <rect x="-315" y="-55" width="630" height="110" rx="20" fill="#F0FDFA" stroke="#99F6E4" stroke-width="2" />
-            <text x="-295" y="-32" font-size="12" font-weight="900" fill="#0D9488">🦠 原核生物（核なし・細胞壁） vs 真核生物（核あり・膜系）</text>
+        <!-- Middle: 原核生物 vs 真核生物 (x=16, y=175, w=668, h=165) -->
+        <g transform="translate(16, 175)">
+            <rect width="668" height="165" rx="16" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="2" />
+            <text x="24" y="28" font-size="13" font-weight="900" fill="#334155">原核生物 vs 真核生物</text>
+            <!-- E. coli diagram left -->
+            <g transform="translate(160, 95)">
+                <rect x="-110" y="-45" width="200" height="75" rx="20" fill="#E2E8F0" stroke="#94A3B8" stroke-width="2"/>
+                <text x="0" y="-20" text-anchor="middle" font-size="11" font-weight="800" fill="#1E293B">大腸菌（細胞壁あり・核なし）</text>
+                <circle cx="-40" cy="5" r="16" fill="none" stroke="#0F172A" stroke-width="2" stroke-dasharray="3 3"/>
+                <text x="-40" y="9" text-anchor="middle" font-size="10" font-weight="700" fill="#0F172A">環状DNA</text>
+            </g>
+            <!-- Eukaryote diagram right -->
+            <g transform="translate(480, 95)">
+                <rect x="-110" y="-45" width="200" height="75" rx="20" fill="#FEF3C7" stroke="#FCD34D" stroke-width="2"/>
+                <text x="0" y="-20" text-anchor="middle" font-size="11" font-weight="800" fill="#92400E">真核生物（核あり・膜系）</text>
+                <circle cx="-35" cy="5" r="18" fill="#FDE68A" stroke="#D97706" stroke-width="2"/>
+                <text x="-35" y="9" text-anchor="middle" font-size="10" font-weight="700" fill="#92400E">核</text>
+            </g>
         </g>
-        <!-- 酵素セクションコンテナ -->
-        <g transform="translate(350, 420)">
-            <rect x="-315" y="-55" width="630" height="110" rx="20" fill="#FDF4FF" stroke="#F0ABFC" stroke-width="2" />
-            <text x="-295" y="-32" font-size="12" font-weight="900" fill="#86198F">🧪 酵素の特徴と代表例（基質特異性・カタラーゼ・ルシフェラーゼ）</text>
+        <!-- Bottom: 酵素の特徴と代表酵素 (x=16, y=350, w=668, h=175) -->
+        <g transform="translate(16, 350)">
+            <rect width="668" height="175" rx="16" fill="#FDF4FF" stroke="#F0ABFC" stroke-width="2" />
+            <text x="24" y="28" font-size="13" font-weight="900" fill="#86198F">酵素の特徴と代表酵素</text>
+            <!-- Lock and Key icon schematic -->
+            <g transform="translate(334, 100)">
+                <path d="M-50 -20 C-50 -35 -20 -35 -20 -20 L-20 -5 L-35 -5 L-35 25 L-5 25 L-5 -5 L-20 -5" fill="none" stroke="#D946EF" stroke-width="3" stroke-linecap="round"/>
+                <text x="-27" y="12" font-size="14">🔑</text>
+                <text x="40" y="5" font-size="12" font-weight="800" fill="#A21CAF">基質特異性 ＆ カタラーゼ / ルシフェラーゼ</text>
+            </g>
         </g>`;
     } else {
         return `
-        <!-- シャルガフ二重鎖テーブルグリッド -->
-        <g transform="translate(350, 115)">
-            <rect x="-315" y="-62" width="630" height="124" rx="20" fill="#FEF3C7" stroke="#FDE68A" stroke-width="2" />
-            <text x="-295" y="-38" font-size="12" font-weight="900" fill="#B45309">⚖️ シャルガフの法則: 2本鎖DNA (A=T, G=C) ＆ 片鎖(H)・対鎖(H')の塩基割合</text>
+        <!-- Top-left: シャルガフの法則（塩基割合表） (x=16, y=10, w=410, h=265) -->
+        <g transform="translate(16, 10)">
+            <rect width="410" height="265" rx="16" fill="#FEF3C7" stroke="#FDE68A" stroke-width="2" />
+            <text x="20" y="26" font-size="12" font-weight="900" fill="#B45309">シャルガフの法則（塩基割合表）</text>
+            <!-- Table grid -->
+            <g transform="translate(20, 45)">
+                <rect x="0" y="0" width="370" height="200" rx="8" fill="#FFFBEB" stroke="#FCD34D" stroke-width="1.5"/>
+                <line x1="0" y1="36" x2="370" y2="36" stroke="#FCD34D" stroke-width="1"/>
+                <line x1="90" y1="0" x2="90" y2="200" stroke="#FCD34D" stroke-width="1"/>
+                <line x1="160" y1="0" x2="160" y2="200" stroke="#FCD34D" stroke-width="1"/>
+                <line x1="230" y1="0" x2="230" y2="200" stroke="#FCD34D" stroke-width="1"/>
+                <line x1="300" y1="0" x2="300" y2="200" stroke="#FCD34D" stroke-width="1"/>
+                <text x="45" y="24" text-anchor="middle" font-size="11" font-weight="800" fill="#92400E">鎖</text>
+                <text x="125" y="24" text-anchor="middle" font-size="11" font-weight="800" fill="#92400E">A</text>
+                <text x="195" y="24" text-anchor="middle" font-size="11" font-weight="800" fill="#92400E">T</text>
+                <text x="265" y="24" text-anchor="middle" font-size="11" font-weight="800" fill="#92400E">C</text>
+                <text x="335" y="24" text-anchor="middle" font-size="11" font-weight="800" fill="#92400E">G</text>
+
+                <text x="45" y="75" text-anchor="middle" font-size="11" font-weight="700" fill="#78350F">H 鎖</text>
+                <text x="125" y="75" text-anchor="middle" font-size="11" fill="#78350F">0.30</text>
+                <text x="195" y="75" text-anchor="middle" font-size="11" fill="#78350F">0.20</text>
+                <text x="265" y="75" text-anchor="middle" font-size="11" fill="#78350F">0.10</text>
+                <text x="335" y="75" text-anchor="middle" font-size="11" fill="#78350F">0.40</text>
+
+                <text x="45" y="120" text-anchor="middle" font-size="11" font-weight="700" fill="#78350F">H' 鎖</text>
+                <text x="125" y="120" text-anchor="middle" font-size="11" fill="#78350F">0.20</text>
+                <text x="195" y="120" text-anchor="middle" font-size="11" fill="#78350F">0.30</text>
+                <text x="265" y="120" text-anchor="middle" font-size="11" fill="#78350F">0.40</text>
+                <text x="335" y="120" text-anchor="middle" font-size="11" fill="#78350F">0.10</text>
+
+                <text x="45" y="165" text-anchor="middle" font-size="11" font-weight="700" fill="#92400E">2本鎖</text>
+                <text x="125" y="165" text-anchor="middle" font-size="11" font-weight="800" fill="#B45309">0.25</text>
+                <text x="195" y="165" text-anchor="middle" font-size="11" font-weight="800" fill="#B45309">0.25</text>
+                <text x="265" y="165" text-anchor="middle" font-size="11" font-weight="800" fill="#B45309">0.25</text>
+                <text x="335" y="165" text-anchor="middle" font-size="11" font-weight="800" fill="#B45309">0.25</text>
+            </g>
         </g>
-        <!-- ゲノム方程式ラベル -->
-        <g transform="translate(350, 255)">
-            <rect x="-190" y="-36" width="380" height="72" rx="16" fill="#F1F5F9" stroke="#CBD5E1" stroke-width="2" />
-            <text x="0" y="-8" text-anchor="middle" font-size="13" font-weight="900" fill="#334155">🧬 ゲノム ＝ 遺伝子領域 ＋ ジャンク領域</text>
-            <text x="0" y="16" text-anchor="middle" font-size="11" font-weight="700" fill="#64748B">（すべての遺伝情報の1セット）</text>
+        <!-- Top-right: 細胞周期とDNA量 (x=438, y=10, w=246, h=265) -->
+        <g transform="translate(438, 10)">
+            <rect width="246" height="265" rx="16" fill="#F0FDF4" stroke="#BBF7D0" stroke-width="2" />
+            <text x="20" y="26" font-size="12" font-weight="900" fill="#166534">細胞周期とDNA量</text>
+            <!-- Step curve axes -->
+            <g transform="translate(30, 50)">
+                <line x1="0" y1="170" x2="190" y2="170" stroke="#166534" stroke-width="1.5"/>
+                <line x1="0" y1="170" x2="0" y2="20" stroke="#166534" stroke-width="1.5"/>
+                <!-- Curve G1 -> S -> G2 -> M -->
+                <path d="M10 130 L60 130 L110 50 L150 50 L180 130" fill="none" stroke="#22C55E" stroke-width="3" stroke-linecap="round"/>
+                <text x="35" y="150" font-size="10" font-weight="700" fill="#15803D">G1</text>
+                <text x="85" y="100" font-size="10" font-weight="700" fill="#15803D">S</text>
+                <text x="130" y="40" font-size="10" font-weight="700" fill="#15803D">G2</text>
+                <text x="165" y="100" font-size="10" font-weight="700" fill="#15803D">M</text>
+            </g>
         </g>
-        <!-- 体細胞(2n) vs 生殖細胞(n) フレーム -->
-        <g transform="translate(350, 395)">
-            <rect x="-315" y="-58" width="630" height="116" rx="20" fill="#F0FDF4" stroke="#BBF7D0" stroke-width="2" />
-            <text x="-295" y="-34" font-size="12" font-weight="900" fill="#166534">🧑 体細胞 (2n / DNA量 2x) ⇄ 生殖細胞 (n / DNA量 x・半減)</text>
+        <!-- Bottom: ゲノム構成 ＆ ヒト体細胞(2n) vs 生殖細胞(n) (x=16, y=288, w=668, h=238) -->
+        <g transform="translate(16, 288)">
+            <rect width="668" height="238" rx="16" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="2" />
+            <text x="24" y="26" font-size="13" font-weight="900" fill="#334155">ゲノム構成 ＆ ヒト体細胞(2n) vs 生殖細胞(n)比較表</text>
+            <!-- Comparison Grid -->
+            <g transform="translate(30, 45)">
+                <rect x="0" y="0" width="608" height="170" rx="10" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1.5"/>
+                <line x1="0" y1="40" x2="608" y2="40" stroke="#CBD5E1" stroke-width="1.5"/>
+                <line x1="180" y1="0" x2="180" y2="170" stroke="#CBD5E1" stroke-width="1.5"/>
+                <line x1="394" y1="0" x2="394" y2="170" stroke="#CBD5E1" stroke-width="1.5"/>
+                <text x="90" y="26" text-anchor="middle" font-size="11" font-weight="800" fill="#475569">項目</text>
+                <text x="287" y="26" text-anchor="middle" font-size="11" font-weight="800" fill="#0D9488">体細胞 (2n)</text>
+                <text x="501" y="26" text-anchor="middle" font-size="11" font-weight="800" fill="#166534">生殖細胞 (n)</text>
+
+                <text x="20" y="75" font-size="11" font-weight="700" fill="#334155">染色体セット</text>
+                <text x="287" y="75" text-anchor="middle" font-size="11" fill="#0F766E">2組（相同染色体ペアあり）</text>
+                <text x="501" y="75" text-anchor="middle" font-size="11" fill="#15803D">1組（半減）</text>
+
+                <text x="20" y="115" font-size="11" font-weight="700" fill="#334155">DNA量 (ヒト)</text>
+                <text x="287" y="115" text-anchor="middle" font-size="11" fill="#0F766E">6.0 × 10⁻¹² g (2x)</text>
+                <text x="501" y="115" text-anchor="middle" font-size="11" fill="#15803D">3.0 × 10⁻¹² g (x)</text>
+
+                <text x="20" y="155" font-size="11" font-weight="700" fill="#334155">ゲノムの定義</text>
+                <text x="394" y="155" text-anchor="middle" font-size="11" font-weight="700" fill="#334155">生殖細胞がもつ1セットの遺伝情報全体</text>
+            </g>
         </g>`;
     }
 }
@@ -137,17 +240,37 @@ function renderBoardBackdropSvg(cat          )         {
 function renderBoardSvg(oniBlankStageId               )       {
     const items = getItemsForCategory(state.category);
     const backdrop = renderBoardBackdropSvg(state.category);
+    const isEasy = state.difficulty === 'easy';
+    const isOni = state.difficulty === 'oni';
+
+    // Normal mode numbered blanks sequence counter
+    let normalBlankIndex = 1;
+
     const nodes = items.map((s) => {
-        const isBlank = oniBlankStageId !== null ? s.stageId === oniBlankStageId : true;
+        const isBlank = oniBlankStageId !== null ? s.stageId === oniBlankStageId : !isEasy;
         const cls = oniBlankStageId !== null
             ? (isBlank ? 'stage-node oni-target-blank interactive-target' : 'stage-node solved')
-            : 'stage-node interactive-target masked';
-        const txt = oniBlankStageId !== null ? (isBlank ? '？' : s.name) : '？';
+            : (isEasy ? 'stage-node interactive-target' : 'stage-node interactive-target masked');
+
+        let txt = '？';
+        if (oniBlankStageId !== null) {
+            txt = isBlank ? '？' : s.name;
+        } else {
+            if (isEasy) {
+                txt = s.name;
+            } else {
+                // Normal mode: hide boxLabel on unfilled boxes and show numbered blanks 【 1 】, 【 2 】...
+                txt = `【 ${normalBlankIndex++} 】`;
+            }
+        }
+
+        const displayBoxLabel = (isEasy || oniBlankStageId !== null || !isBlank) ? s.boxLabel : '';
+
         return `<g class="${cls}" data-stage="${s.stageId}" tabindex="0" role="button" transform="translate(${s.x}, ${s.y})">
             <g class="stage-visual">
-                <rect class="stage-box ${isBlank && oniBlankStageId ? 'oni-focus-box' : ''}" x="-92" y="-38" width="184" height="76" rx="16" fill="#FFFFFF" stroke="#6F7977" stroke-width="2.5" />
-                <text x="0" y="-14" text-anchor="middle" font-size="12" font-weight="700" fill="#5B6E82">${s.boxLabel}</text>
-                <text class="stage-label" x="0" y="14" text-anchor="middle" font-size="16" font-weight="800" fill="#161D1C">${txt}</text>
+                <rect class="stage-box ${isBlank && (oniBlankStageId || !isEasy) ? 'oni-focus-box' : ''}" x="-92" y="-38" width="184" height="76" rx="16" fill="#FFFFFF" stroke="#6F7977" stroke-width="2.5" />
+                <text x="0" y="-14" text-anchor="middle" font-size="12" font-weight="700" fill="#5B6E82">${displayBoxLabel}</text>
+                <text class="stage-label" x="0" y="14" text-anchor="middle" font-size="15" font-weight="800" fill="#161D1C">${txt}</text>
             </g>
         </g>`;
     }).join('');
