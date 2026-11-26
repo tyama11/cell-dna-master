@@ -312,6 +312,12 @@ function createConfetti(): void {
     }
 }
 
+function updateOniHud(rem = state.timeLeft * 1000): void {
+    els.timerText.textContent = String(state.timeLeft);
+    els.scoreText.textContent = `🏆 ${state.score}問`;
+    els.progressFill.style.width = `${Math.min(100, (rem / (ONI_TIME_LIMIT * 1000)) * 100)}%`;
+}
+
 function showToast(msg: string): void {
     els.toast.innerHTML = msg;
     els.toast.style.backgroundColor = msg.includes('❌') ? 'rgba(239, 68, 68, 0.95)' : 'rgba(13, 148, 136, 0.95)';
@@ -323,7 +329,7 @@ function showToast(msg: string): void {
 function handleGameClear(): void {
     state.isPlaying = false;
     let unlockedNow = false;
-    const k = keyFor(state.category);
+    const k = state.category;
     if (state.difficulty === 'normal' && !progress.isOniUnlocked(k)) {
         progress.unlockOni(k); state.justUnlockedOni = true; unlockedNow = true;
     }
@@ -337,7 +343,7 @@ function handleGameClear(): void {
 
 function handleOniTimeUp(): void {
     state.isPlaying = false;
-    const k = keyFor(state.category);
+    const k = state.category;
     const prev = progress.getOniBest(k) ?? -1;
     const best = Math.max(prev, state.score);
     if (state.score > prev) progress.setOniBest(k, best);
